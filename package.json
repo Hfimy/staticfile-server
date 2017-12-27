@@ -1,0 +1,24 @@
+{
+  "name": "staticfile-server",
+  "version": "1.0.0",
+  "description": "a static resource server written by Node.js",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run test",
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hfimy/staticfile-server.git"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "hfimy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hfimy/staticfile-server/issues"
+  },
+  "homepage": "https://github.com/Hfimy/staticfile-server#readme"
+}
