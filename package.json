@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
-  "pre-commit":[
+  "pre-commit": [
     "fix",
     "lint"
   ],
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/Hfimy/staticfile-server#readme",
   "devDependencies": {
+    "babel-eslint": "^8.1.2",
+    "eslint": "^4.14.0",
     "pre-commit": "^1.2.2"
   }
 }
