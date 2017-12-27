@@ -5,7 +5,7 @@ const {root,port,hostname}=require('./config/defaultConfig');
 
 //req,res都是流对象
 const server=http.createServer((req,res)=>{
-    const filePath=path.join(root,req.url)
+    const filePath=path.join(root,req.url);
 
     res.statusCode=200;
     res.setHeader('Content-Type','text/html');
