@@ -2,7 +2,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
-const { root, port, hostname,compressFile } = require('./config/defaultConfig');
+const { root, port, hostname} = require('./config/defaultConfig');
 
 const mime=require('./helper/mime');
 const compress=require('./helper/compress');
