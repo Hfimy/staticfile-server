@@ -52,7 +52,7 @@ const server = http.createServer(async (req, res) => {
             // if(filePath.match(compressFile)){
             //     rs=compress(rs,req,res)
             // }
-            rs.pipe(res)
+            rs.pipe(res);
         } else if (stats.isDirectory()) {
             const files = await readdir(filePath);
             res.statusCode = 200;
