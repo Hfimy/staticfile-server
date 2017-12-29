@@ -2,10 +2,11 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
-const { root, port, hostname} = require('./config/defaultConfig');
+const { root, port, hostname } = require('./config/defaultConfig');
 
-const mime=require('./helper/mime');
-const compress=require('./helper/compress');
+const mime = require('./helper/mime');
+const compress = require('./helper/compress');
+const range = require('./helper/range');
 
 const Handlebars = require('handlebars');
 
@@ -25,27 +26,42 @@ const server = http.createServer(async (req, res) => {
     try {
         const stats = await stat(filePath);
         if (stats.isFile()) {
-            const contentType=mime(filePath);
-            res.statusCode = 200;
-            res.setHeader('Content-Type', contentType);
-            let rs=fs.createReadStream(filePath);
+            //返回正确的mime类型
+            const contentType = mime(filePath);
+            res.setHeader('Content-Type', contentType);//Content-Type后面继续设置会覆盖前面的
+
+            const { code, start, end } = range(stats.size, req, res);
+            res.statusCode = code;//同上
+
+            let rs;
+            //是否有范围请求
+            if (code === 200) {
+                rs = fs.createReadStream(filePath);
+            } else if (code === 206) {
+                rs = fs.createReadStream(filePath, { start, end });// 返回部分内容
+            } else if (code === 416) {
+                res.setHeader('Content-Type', 'text/plain');
+                res.end('Failed to satisfy the range request');
+                return;
+            }
+
+            //压缩文件
             //压缩所有返回的文件
-            compress(rs,req,res).pipe(res);
-            
+            rs = compress(rs, req, res);
             // 只压缩指定格式的文件
             // if(filePath.match(compressFile)){
             //     rs=compress(rs,req,res)
             // }
-            // rs.pipe(res)
+            rs.pipe(res)
         } else if (stats.isDirectory()) {
             const files = await readdir(filePath);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'text/html');
-            const dir=path.relative(root,filePath);
+            const dir = path.relative(root, filePath);
             const data = {
                 //path.basename返回path的最后一部分
                 title: path.basename(filePath),
-                dir: dir?`/${dir}`:'',
+                dir: dir ? `/${dir}` : '',
                 files
             };
             res.end(template(data));
