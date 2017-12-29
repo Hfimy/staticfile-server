@@ -7,6 +7,7 @@ const { root, port, hostname } = require('./config/defaultConfig');
 const mime = require('./helper/mime');
 const compress = require('./helper/compress');
 const range = require('./helper/range');
+const isFresh = require('./helper/cache')
 
 const Handlebars = require('handlebars');
 
@@ -26,6 +27,14 @@ const server = http.createServer(async (req, res) => {
     try {
         const stats = await stat(filePath);
         if (stats.isFile()) {
+            console.log('确认使用了本地的缓存吗?')
+            if (!isFresh(stats, req, res)) {
+                console.log('确认资源没有更新')
+                res.statusCode = 304;
+                res.end();
+                return;
+            }
+            
             //返回正确的mime类型
             const contentType = mime(filePath);
             res.setHeader('Content-Type', contentType);//Content-Type后面继续设置会覆盖前面的
