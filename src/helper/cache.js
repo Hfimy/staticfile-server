@@ -1,4 +1,4 @@
-const { cache } = require('../config/defaultConfig')
+const { cache } = require('../config/defaultConfig');
 
 function refreshRes(stats, res) {
     const { maxAge, expires, cacheControl, lastModified, etag } = cache;
@@ -13,9 +13,9 @@ function refreshRes(stats, res) {
 
     //lashModified和etag选择一种就行了
     if (lastModified) {
-        res.setHeader('Last-Modified', stats.mtime.toUTCString())
+        res.setHeader('Last-Modified', stats.mtime.toUTCString());
     }
-
+    //eslint-disable-next-line
     const ETag=`${stats.size}-${stats.mtime.toUTCString().replace(/\,/,'')}`;
     if (etag) {
         res.setHeader('ETag',`${ETag}`);
@@ -41,5 +41,5 @@ module.exports=function isFresh(stats, req, res) {
     }
 
     return false;
-}
+};
 
