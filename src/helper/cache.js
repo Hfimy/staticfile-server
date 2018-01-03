@@ -22,6 +22,7 @@ function refreshRes(stats, res) {
     }
 }
 
+//导出isFresh函数
 module.exports = (stats, req, res) => {
     refreshRes(stats, res);
 

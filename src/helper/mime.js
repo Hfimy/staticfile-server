@@ -1,10 +1,10 @@
 const path=require('path');
 const mimeTypes={
     'css':'test/css;charset=utf8',
-    'gif':'image/gif;charset=utf8',
+    'gif':'image/gif',
     'html':'text/html;charset=utf8',
-    'ico':'image/x-icon;charset=utf8',
-    'jpeg':'image/jpeg;charset=utf8',
+    'ico':'image/x-icon',
+    'jpeg':'image/jpeg',
     'js':'text/javascript;charset=utf8',
     'json':'application/json;charset=utf8',
     'pdf':'application/pdf;charset=utf8',

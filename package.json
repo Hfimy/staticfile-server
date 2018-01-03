@@ -1,8 +1,11 @@
 {
   "name": "staticfile-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a static resource server written by Node.js",
-  "main": "src/index.js",
+  "main": "src/app.js",
+  "bin":{
+    "staticfile":"bin/staticfile-server"
+  },
   "scripts": {
     "test": "npm run test",
     "lint": "eslint .",
@@ -32,6 +35,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
-    "handlebars": "^4.0.11"
+    "handlebars": "^4.0.11",
+    "yargs": "^10.0.3"
   }
 }

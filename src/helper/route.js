@@ -1,12 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
-const { root } = require('../config/defaultConfig');
 
 const mime = require('./mime');
 const compress = require('./compress');
 const range = require('./range');
-const cache = require('./cache');
+const isFresh = require('./cache');
 
 const Handlebars = require('handlebars');
 /* 读写文件时建议使用path拼接成绝对路径，因为此时的相对路径是相对于启动node程序的目录，
@@ -19,14 +18,14 @@ const promisify = require('util').promisify;
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, root) => {
     const filePath = path.join(root, req.url);
     try {
         const stats = await stat(filePath);
         if (stats.isFile()) {
             //eslint-disable-next-line no-console
             console.info('确认使用了本地的缓存吗?');
-            if (!cache(stats, req, res)) {
+            if (!isFresh(stats, req, res)) {
                 //eslint-disable-next-line no-console
                 console.info('确认资源没有更新');
                 res.statusCode = 304;
