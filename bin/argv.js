@@ -1,9 +1,9 @@
-const Server = require('./app');
+const Server = require('../src/app');
 
 const yargs = require('yargs');
 
 const argv = yargs
-    .usage('staticfile-server [options]')
+    .usage('static-resource-server [options]')
     .option('P', {
         alias: 'port',//别名的意思
         describe: 'the port number',

@@ -1,24 +1,49 @@
-# staticfile-server
-动手实现一个Node.js静态资源服务器
+# static-resource-server
+<br>
+A tiny http server that provides 
+local static resource access
+<br>
 
-* 返回正确的mime类型
-* Gzip压缩后再返回
-* 添加范围请求处理
+* return the correct mime type by the file extension
+* Gzip compressed before returning
+* support Content-Range header
+* provide caching
 
-#### 安装
+## Getting started
+
+### As a cli tool
+
+#### install
+```javascript
+npm i static-resource-server -g
 ```
-npm i staticfile-server -g
+#### use
+```javascript
+static-resource-server --port 8080 --hostname 127.0.0.2 --root /usr
 ```
+#### options
 
-#### 使用方法
+    --help                     output usage information
+    -V, --version              output the version number
+    -P, --port <n>             the port to listen to for incoming HTTP 
+    -H, --hostname <n>         the host name 
+    -R, --root <n>             the root directory of static resources
+
+
+### As a node module
+
+#### install
+```javascript
+npm i static-resource-server
 ```
-//作为cli工具
-
-staticfile-server   //把当前文件夹作为静态资源服务器目录
-
-staticfile-server -p 8080  //设置端口号为8080
-
-staticfile-server -h localhost  //设置host为localhost
-
-staticfile-server -d /user  //设置根目录为/user
+#### use
+```javascript
+const Server = require('static-resource-server');
+const server = new Server({
+  root: '/',                 // optional
+  port: 521,                 // optional
+  hostname: '127.0.0.2',     // optional
+});
+ 
+server.start()
 ```

@@ -1,10 +1,10 @@
 {
-  "name": "staticfile-server",
-  "version": "1.0.1",
+  "name": "static-resource-server",
+  "version": "1.4.1",
   "description": "a static resource server written by Node.js",
   "main": "src/app.js",
   "bin":{
-    "staticfile":"bin/staticfile-server"
+    "static-resource-server":"bin/static-resource-server"
   },
   "scripts": {
     "test": "npm run test",
