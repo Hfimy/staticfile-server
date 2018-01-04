@@ -3,3 +3,4 @@
 .eslintrc.js
 .gitignore
 .vscode
+node_modules

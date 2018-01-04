@@ -1,6 +1,6 @@
 {
   "name": "static-resource-server",
-  "version": "1.4.1",
+  "version": "1.6.2",
   "description": "a static resource server written by Node.js",
   "main": "src/app.js",
   "bin":{
